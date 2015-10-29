@@ -1,0 +1,149 @@
+package com.alterkacker.Staff;
+import java.awt.*;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+
+import no.geosoft.cc.geometry.Geometry;
+import no.geosoft.cc.graphics.*;
+
+
+
+/**
+ * G demo program. Demonstrates:
+ *
+ * <ul>
+ * </ul>
+ * 
+ * @author <a href="mailto:jacob.dreyer@geosoft.no">Jacob Dreyer</a>
+ */   
+public class Demo22 extends JFrame
+  implements ActionListener
+{
+  private JButton  newGameButton_;
+  private JLabel   timeLabel_;
+  private Shuffle  shuffle_;
+  
+    
+  
+  public Demo22()
+  {
+    super ("G Graphics Library - Demo 22");    
+    setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+
+    JPanel controlPanel = new JPanel();
+    controlPanel.setLayout (new BorderLayout());
+    newGameButton_ = new JButton ("New Game");
+    newGameButton_.addActionListener (this);
+    controlPanel.add (newGameButton_, BorderLayout.WEST);
+
+    timeLabel_ = new JLabel();
+    controlPanel.add (timeLabel_, BorderLayout.EAST);    
+    
+    // Create the graphic canvas
+    GWindow window = new GWindow();
+    window.setBackground (new Color (210, 235, 255));
+    getContentPane().add (window.getCanvas());
+    
+    // Create scene with default viewport and world extent settings
+    GScene scene = new GScene (window);
+
+    // Create the graphics object and add to the scene
+    GObject object = new HelloWorld();
+    scene.add (object);
+
+    pack();
+    setSize (new Dimension (500, 500));
+    setVisible (true);
+  }
+
+
+  
+  public void actionPerformed (ActionEvent event)
+  {
+  }
+  
+
+  public class Shuffle
+  {
+    private int    size_;
+    private int[]  sequence_;
+
+    public Shuffle (int size)
+    {
+      size_ = size;
+      sequence_ = new int[size_ * size_];
+      newGame();
+    }
+
+    public void newGame()
+    {
+      for (int i = 0; i < order_.length; i++)
+        sequence_[i] = 0;
+      
+      for (int i = 0; i < size_ * size_; i++) {
+        int index = (int) Math.round (Math.random() * 15);
+        while (sequence_[index] != 0)
+          index = index == 15 ? 1 : index + 1;
+        sequence_[index] = i;
+      }
+    }
+  }
+
+
+  public boolean isDone()
+  {
+    for (int i = 0; i < 
+  }
+  
+  
+  
+  /**
+   * Defines the geometry and presentation for the sample
+   * graphic object.
+   */   
+  private class HelloWorld extends GObject
+  {
+    private GSegment star_;
+    
+    
+    HelloWorld()
+    {
+      star_ = new GSegment();
+      GStyle starStyle = new GStyle();
+      starStyle.setForegroundColor (Color.RED);
+      starStyle.setBackgroundColor (Color.YELLOW);
+      starStyle.setLineWidth (3);
+      setStyle (starStyle);
+      addSegment (star_);
+      
+      GText text = new GText ("HelloWorld", GPosition.MIDDLE);
+      GStyle textStyle = new GStyle();
+      textStyle.setForegroundColor (new Color (100, 100, 150));
+      textStyle.setBackgroundColor (null);
+      textStyle.setFont (new Font ("Dialog", Font.BOLD, 48));
+      text.setStyle (textStyle);
+      star_.setText (text);
+    }
+    
+
+  
+    /**
+     * This method is called whenever the canvas needs to redraw this
+     * object. For efficiency, prepare as much of the graphic object
+     * up front (such as sub object, segment and style setup) and
+     * set geometry only in this method.
+     */
+    public void draw()
+    {
+      star_.setGeometry (Geometry.createStar (220, 220, 200, 80, 15));
+    }
+  }
+  
+
+
+  public static void main (String[] args)
+  {
+    new Demo1();
+  }
+}

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="G">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/G.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/nicenumbers.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/spline.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
